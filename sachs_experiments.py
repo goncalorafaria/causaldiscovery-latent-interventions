@@ -1,7 +1,5 @@
 import wandb
-import pickle
 import argparse
-import random
 import numpy as np
 
 from pycausal.distributions import norm
@@ -171,7 +169,7 @@ def main():
             "perfect":args.perfect,
             "mlpdim":config["mlpdim"],
             "mlplayers":config["mlplayers"],
-            "hard": False,
+            "hard": True,
             "atomic": False,
             "device":device,
             "i":K,
