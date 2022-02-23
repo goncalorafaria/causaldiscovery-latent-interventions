@@ -2,8 +2,7 @@ import wandb
 import argparse
 import numpy as np
 
-from pycausal.distributions import norm
-from causaldiscover.utils.data_utils import batchify, build_dataset, load_dcdi_data, cxsplit
+from causaldiscover.utils.data_utils import  cxsplit
 from causaldiscover.utils.experiment_utils import run_discover, eval_nll
 from cdt.data import load_dataset
 import networkx as nx
@@ -86,7 +85,7 @@ def parse_args():
 
 def main():
 
-    wandb_ = True
+    wandb_ = False
     debug_ = False
 
     cluster_metrics = []
@@ -262,18 +261,20 @@ def main():
     print("point hamming_dist:" +str(hamming_distance))
     criterion = hamming_distance
 
+    results = {
+        "#hamming":hamming_distance,
+        "#gg":g,
+        "#f1":f1,
+        "#rec":rec,
+        "#pre":pre,
+        "#tp":tp,
+        "#fn":fn,
+        "#fp":fp,
+        "#rev":rev,
+        "#nll":score}
+
     if wandb_:
-        wandb.log({
-            "#hamming":hamming_distance,
-            "#gg":g,
-            "#f1":f1,
-            "#rec":rec,
-            "#pre":pre,
-            "#tp":tp,
-            "#fn":fn,
-            "#fp":fp,
-            "#rev":rev,
-            "#nll":score})
+        wandb.log(results)
         
     print("###running mean###")
     print(hamming_distance)

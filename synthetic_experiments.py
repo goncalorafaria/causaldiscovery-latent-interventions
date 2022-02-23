@@ -32,7 +32,7 @@ hyperparameter_defaults = dict(
 
 def main():
 
-    wandb_=True
+    wandb_=False
 
     cluster_metrics = []
     solutions =[]

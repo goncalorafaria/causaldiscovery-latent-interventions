@@ -1,14 +1,7 @@
 import torch
 #from adamp import AdamP
-from matplotlib import pyplot as plt
 #from sklearn import metrics
-from torch.distributions.exp_family import ExponentialFamily
-from numbers import Real, Number
-from torch.distributions import constraints
-from torch.distributions.dirichlet import Dirichlet
-from typing import Any, Dict, Iterable, List, Tuple
-from torch.distributions.beta import Beta
-from torch.distributions.kl import kl_divergence
+from typing import Tuple
 from torch.distributions.relaxed_categorical import RelaxedOneHotCategorical
 #i = 4
 #hdim = 3
@@ -24,33 +17,6 @@ def get_cross_distances(u_par):
         loss = ucross.sum()
 
         return loss
-
-def initialize_clusters(
-    i,
-    hdim,
-    lr=0.1):
-
-    u = torch.randn(i,hdim)
-
-    u_par = torch.nn.Parameter(u)
-
-    optimizer = AdamP(
-            [u_par],
-            lr=lr
-    )
-
-    for _ in range(2000):
-        optimizer.zero_grad()
-
-        loss = -get_cross_distances(u_par)
-
-        loss.backward()
-        optimizer.step()
-
-    print(u_par)
-
-    return u_par.detach()
-
 
 def init_ro_scheduler(device, minr=0.0, inverse=False, perc=0.6, epochs=2000):
 
